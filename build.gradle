@@ -22,7 +22,9 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    jcenter()
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
@@ -67,4 +69,19 @@ uploadArchives {
             }
         }
     }
+}
+
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
 }
