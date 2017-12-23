@@ -3,11 +3,13 @@ package kfoenix
 import com.jfoenix.controls.JFXComboBox
 import com.jfoenix.controls.JFXListView
 import com.jfoenix.controls.JFXSpinner
+import javafx.application.Platform
 import javafx.beans.property.Property
 import javafx.beans.property.ReadOnlyListProperty
 import javafx.beans.value.ObservableValue
 import javafx.collections.ObservableList
 import javafx.event.EventTarget
+import javafx.scene.control.TableColumn
 import tornadofx.*
 
 fun <T> EventTarget.jfxcombobox(property: Property<T>? = null, values: List<T>? = null, op: JFXComboBox<T>.() -> Unit = {}): JFXComboBox<T> {
@@ -42,4 +44,15 @@ fun EventTarget.jfxspinner(property: ObservableValue<Boolean>? = null, op: JFXSp
     val spinner = JFXSpinner()
     if(property != null) spinner.visibleProperty().bind(property)
     return opcr(this, spinner, op)
+}
+
+
+fun <S> TableColumn<S, Boolean?>.useJFXCheckBox(editable: Boolean = true): TableColumn<S, Boolean?> {
+    setCellFactory { JFXCheckBoxCell(editable) }
+    if(editable) {
+        Platform.runLater {
+            tableView?.isEditable = true
+        }
+    }
+    return this
 }

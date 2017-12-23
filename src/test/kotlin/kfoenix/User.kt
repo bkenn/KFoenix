@@ -1,5 +1,6 @@
 package kfoenix
 
+import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleObjectProperty
 import javafx.beans.property.SimpleStringProperty
 import tornadofx.*
@@ -7,7 +8,7 @@ import tornadofx.getValue
 import tornadofx.setValue
 import java.time.LocalDate
 
-class User(name: String, login: String, password: String, email: String, comment: String = "") {
+class User(name: String, login: String, password: String, email: String, comment: String = "", valid: Boolean = true) {
 
     val nameProperty = SimpleStringProperty(name)
     var name by nameProperty
@@ -29,6 +30,9 @@ class User(name: String, login: String, password: String, email: String, comment
 
     val dobProperty = SimpleObjectProperty<LocalDate>(LocalDate.now())
     var dob by dobProperty
+
+    val validProperty = SimpleBooleanProperty(valid)
+    var valid by validProperty
 
     override fun toString() = "User {name=$name; login=$login; password=$password; email=$email; state=$state}"
 }
