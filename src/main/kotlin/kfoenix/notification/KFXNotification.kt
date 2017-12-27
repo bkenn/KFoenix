@@ -1,4 +1,4 @@
-package kfoenix
+package kfoenix.notification
 
 import javafx.animation.ParallelTransition
 import javafx.event.ActionEvent
@@ -15,6 +15,10 @@ import kotlin.properties.Delegates
 
 class KFXNotification {
 
+    /**
+     * Default notification is a message.
+     */
+
     private var title               = ""
     private var text                = ""
     private var typeMessage         = "MESSAGE"
@@ -22,57 +26,29 @@ class KFXNotification {
     private var hideAfterDuration   = Duration.seconds(5.0)
     private var hideCloseButton     = false
     private var onAction            = EventHandler<ActionEvent> { }
-    private var graphic : Node      = ImageView("/img/dialog-message.png")
+    private var graphic: Node       = ImageView("/img/dialog-message.png")
     private var owner: Window?      = null
     private var screen              = Screen.getPrimary()
     val styleClass                  = mutableListOf<String>()
 
-    fun text(text: String): KFXNotification {
-        this.text = text
-        return this
-    }
+    fun text(text: String)  = this.also { this.text = text }
+    fun title(title: String) = this.also { this.title = title }
+    fun position(position: Pos) = this.also { this.position = position }
+    fun hideAfter(duration: Duration) = this.also { this.hideAfterDuration = duration }
+    fun onAction(onAction: EventHandler<ActionEvent>) = this.also { this.onAction = onAction }
+    fun hideCloseButton() = this.also { this.hideCloseButton = true }
+    fun graphic(graphic: Node) = this.also { this.graphic = graphic }
 
-    fun title(title: String): KFXNotification {
-        this.title = title
-        return this
-    }
-
-    fun position(position: Pos): KFXNotification {
-        this.position = position
-        return this
-    }
-
-    fun owner(owner: Any) : KFXNotification {
+    fun owner(owner: Any) = this.also {
         if(owner is Screen) {
             this.screen = owner
         } else {
             this.owner = getWindow(owner)
         }
-        return this
-    }
-
-    fun hideAfter(duration: Duration): KFXNotification {
-        this.hideAfterDuration = duration
-        return this
-    }
-
-    fun onAction(onAction: EventHandler<ActionEvent>): KFXNotification {
-        this.onAction = onAction
-        return this
-    }
-
-    fun hideCloseButton(): KFXNotification {
-        this.hideCloseButton = true
-        return this
-    }
-
-    fun graphic(graphic: Node): KFXNotification {
-        this.graphic = graphic
-        return this
     }
 
     private fun show() {
-        KFXNotification.NotificationPopupHandler.show(this)
+        NotificationPopupHandler.show(this)
     }
 
     fun showMessage() {
@@ -99,10 +75,8 @@ class KFXNotification {
         show()
     }
 
-
-
     companion object {
-        fun create(): KFXNotification = KFXNotification()
+        @JvmStatic fun create(): KFXNotification = KFXNotification()
 
         fun getWindow(owner: Any?): Window {
             var window: Window by Delegates.notNull()
@@ -125,15 +99,14 @@ class KFXNotification {
 
     private object NotificationPopupHandler {
 
-        private val popupsMap = hashMapOf<Pos, List<Popup>>()
-        private val padding = 15
-        private val parallelTransition = ParallelTransition()
-        private var isShowing = false
-
-        var startX      : Double by Delegates.notNull()
-        var startY      : Double by Delegates.notNull()
-        var screenWidth : Double by Delegates.notNull()
-        var screenHeight: Double by Delegates.notNull()
+        private val popupsMap           = hashMapOf<Pos, List<Popup>>()
+        private val parallelTransition  = ParallelTransition()
+        private var isShowing           = false
+        private val padding             = 15
+        var startX                      = 0.00
+        var startY                      = 0.00
+        var screenWidth                 = 0.00
+        var screenHeight                = 0.00
 
         fun show(notification: KFXNotification) {
             var window: Window by Delegates.notNull()
@@ -172,8 +145,6 @@ class KFXNotification {
             val popup = Popup()
             popup.isAutoFix = false
             val p = notification.position
-
-
         }
 
     }

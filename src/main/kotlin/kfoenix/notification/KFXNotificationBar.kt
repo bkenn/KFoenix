@@ -1,4 +1,4 @@
-package kfoenix
+package kfoenix.notification
 
 import javafx.event.Event
 import javafx.event.EventType
