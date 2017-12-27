@@ -31,15 +31,15 @@ class KFXNotification {
     private var screen              = Screen.getPrimary()
     val styleClass                  = mutableListOf<String>()
 
-    fun text(text: String)  = this.also { this.text = text }
-    fun title(title: String) = this.also { this.title = title }
-    fun position(position: Pos) = this.also { this.position = position }
-    fun hideAfter(duration: Duration) = this.also { this.hideAfterDuration = duration }
-    fun onAction(onAction: EventHandler<ActionEvent>) = this.also { this.onAction = onAction }
-    fun hideCloseButton() = this.also { this.hideCloseButton = true }
-    fun graphic(graphic: Node) = this.also { this.graphic = graphic }
+    fun text(text: String)  = also { this.text = text }
+    fun title(title: String) = also { this.title = title }
+    fun position(position: Pos) = also { this.position = position }
+    fun hideAfter(duration: Duration) = also { this.hideAfterDuration = duration }
+    fun onAction(onAction: EventHandler<ActionEvent>) = also { this.onAction = onAction }
+    fun hideCloseButton() = also { this.hideCloseButton = true }
+    fun graphic(graphic: Node) = also { this.graphic = graphic }
 
-    fun owner(owner: Any) = this.also {
+    fun owner(owner: Any) = also {
         if(owner is Screen) {
             this.screen = owner
         } else {
