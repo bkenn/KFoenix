@@ -1,8 +1,8 @@
 buildscript {
     ext {
         jfoenix_version = "1.11.1"
-        kotlin_version = "1.2.0"
-        tornadofx_version = "1.7.13-SNAPSHOT"
+        kotlin_version = "1.2.10"
+        tornadofx_version = "1.7.14"
     }
 
     repositories {
