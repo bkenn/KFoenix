@@ -137,6 +137,17 @@ fun <T> EventTarget.jfxtextarea(property: Property<T>,
     op(this)
 }
 
+/*
+// possible implementation that gives more control over snackbar
+fun View.jfxsnackbar(message: String, timeout: Long = -1, op: JFXSnackbar.() -> Unit = {}) {
+    if(root is Pane) {
+        val bar = JFXSnackbar(root as Pane)
+        bar.op()
+        bar.show(message, timeout)
+    }
+}
+ */
+
 fun <T: Pane> jfxsnackbar(message: String, pane: T, op: JFXSnackbar.() -> Unit = {})
         = JFXSnackbar(pane).also(op).enqueue(JFXSnackbar.SnackbarEvent(message))
 
