@@ -10,6 +10,7 @@ import javafx.scene.Node
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ToolBar
 import javafx.scene.layout.Pane
+import javafx.scene.layout.Region
 import javafx.scene.paint.Color
 import javafx.util.StringConverter
 import tornadofx.*
@@ -80,6 +81,25 @@ fun EventTarget.jfxdatepicker(op: JFXDatePicker.() -> Unit = {}) : JFXDatePicker
 
 fun EventTarget.jfxdatepicker(property: Property<LocalDate>, op: JFXDatePicker.() -> Unit = {}): JFXDatePicker
         = jfxdatepicker(op).apply { bind(property) }
+
+
+fun EventTarget.jfxnodelist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
+    val nodeList = JFXNodesList()
+    val interceptor = object: ChildInterceptor {
+        override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean {
+            if(parent is JFXNodesList && node is Region) {
+                parent.addAnimatedNode(node)
+                return true
+            }
+            return false
+        }
+    }
+    FX.addChildInterceptor(interceptor)
+    nodeList.op()
+    FX.removeChildInterceptor(interceptor)
+    addChildIfPossible(nodeList)
+    return nodeList
+}
 
 fun EventTarget.jfxpasswordfield(promptText: String? = null, op: JFXPasswordField.() -> Unit = {}): JFXPasswordField  {
     val passwordField = JFXPasswordField()
