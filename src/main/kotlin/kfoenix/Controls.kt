@@ -10,6 +10,7 @@ import javafx.scene.Node
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ToolBar
 import javafx.scene.layout.Pane
+import javafx.scene.layout.Region
 import javafx.scene.paint.Color
 import javafx.util.StringConverter
 import tornadofx.*
@@ -81,6 +82,25 @@ fun EventTarget.jfxdatepicker(op: JFXDatePicker.() -> Unit = {}) : JFXDatePicker
 fun EventTarget.jfxdatepicker(property: Property<LocalDate>, op: JFXDatePicker.() -> Unit = {}): JFXDatePicker
         = jfxdatepicker(op).apply { bind(property) }
 
+
+fun EventTarget.jfxnodeslist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
+    val nodeList = JFXNodesList()
+    val interceptor = object: ChildInterceptor {
+        override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean {
+            if(parent is JFXNodesList && node is Region) {
+                parent.addAnimatedNode(node)
+                return true
+            }
+            return false
+        }
+    }
+    FX.addChildInterceptor(interceptor)
+    nodeList.op()
+    FX.removeChildInterceptor(interceptor)
+    addChildIfPossible(nodeList)
+    return nodeList
+}
+
 fun EventTarget.jfxpasswordfield(promptText: String? = null, op: JFXPasswordField.() -> Unit = {}): JFXPasswordField  {
     val passwordField = JFXPasswordField()
     if(promptText != null) passwordField.promptText = promptText
@@ -136,6 +156,17 @@ fun <T> EventTarget.jfxtextarea(property: Property<T>,
     ViewModel.register(textProperty(), property)
     op(this)
 }
+
+/*
+// possible implementation that gives more control over snackbar
+fun View.jfxsnackbar(message: String, timeout: Long = -1, op: JFXSnackbar.() -> Unit = {}) {
+    if(root is Pane) {
+        val bar = JFXSnackbar(root as Pane)
+        bar.op()
+        bar.show(message, timeout)
+    }
+}
+ */
 
 fun <T: Pane> jfxsnackbar(message: String, pane: T, op: JFXSnackbar.() -> Unit = {})
         = JFXSnackbar(pane).also(op).enqueue(JFXSnackbar.SnackbarEvent(message))
