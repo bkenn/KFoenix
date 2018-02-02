@@ -1,40 +1,41 @@
 # KFoenix
 
 
-- []  JFXAlert
-- []  JFXBadge
+- [ ] JFXAlert
+- [ ] JFXBadge
 - [X] JFXButton
 - [X] JFXCheckBox
-- []  JFXColorPicker
+- [ ] JFXColorPicker
 - [X] JFXComboBox
 - [X] JFXDatePicker
 - [X] JFXDecorator
-- []  JFXDialog
-- []  JFXDialogLayout
-- []  JFXDrawer 
-- []  JFXDrawersStack
-- []  JFXHamburger
-- []  JFXListCell
+- [ ] JFXDialog
+- [ ] JFXDialogLayout
+- [ ] JFXDrawer 
+- [ ] JFXDrawersStack
+- [ ] JFXHamburger
+- [ ] JFXListCell
 - [X] JFXListView
-- []  JFXMasonryPane
+- [ ] JFXMasonryPane
+- [x] JFXNodesList
 - [X] JFXPasswordField
-- []  JFXPopup
-- []  JFXProgressBar
+- [ ] JFXPopup
+- [ ] JFXProgressBar
 - [X] JFXRadioButton
 - [X] JFXSpinner
-- []  JFXScrollPane
-- []  JFXSlider
+- [ ] JFXScrollPane
+- [ ] JFXSlider
 - [X] JFXSnackbar
-- []  JFXTabPane
+- [ ] JFXTabPane
 - [X] JFXTextArea
 - [X] JFXTextField
-- []  JFXTimePicker
+- [ ] JFXTimePicker
 - [X] JFXToggleButton
-- []  JFXTogglePane
+- [ ] JFXTogglePane
 - [X] JFXToolBar
-- []  JFXTreeCell
-- []  JFXTreeTableColumn
-- []  JFXTreeTableRow
-- []  JFXTreeTableView
-- []  JFXTreeViewPath
+- [ ] JFXTreeCell
+- [ ] JFXTreeTableColumn
+- [ ] JFXTreeTableRow
+- [ ] JFXTreeTableView
+- [ ] JFXTreeViewPath
 

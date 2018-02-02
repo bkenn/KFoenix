@@ -83,7 +83,7 @@ fun EventTarget.jfxdatepicker(property: Property<LocalDate>, op: JFXDatePicker.(
         = jfxdatepicker(op).apply { bind(property) }
 
 
-fun EventTarget.jfxnodelist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
+fun EventTarget.jfxnodeslist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
     val nodeList = JFXNodesList()
     val interceptor = object: ChildInterceptor {
         override fun invoke(parent: EventTarget, node: Node, index: Int?): Boolean {

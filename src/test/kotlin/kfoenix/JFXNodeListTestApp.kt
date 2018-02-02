@@ -12,7 +12,7 @@ class JFXNodeListTestApp : App(Main::class, MyStyles::class) {
         override val root = vbox {
             addClass(MyStyles.box)
 
-            jfxnodelist {
+            jfxnodeslist {
                 addClass(MyStyles.jfxNodeList1)
                 listOf("B1", "B2", "B3").forEach { name ->
                     jfxbutton(name) {
@@ -20,7 +20,7 @@ class JFXNodeListTestApp : App(Main::class, MyStyles::class) {
                     }
                 }
 
-                jfxnodelist {
+                jfxnodeslist {
                     addClass(MyStyles.jfxNodeList2)
                     listOf("G1", "G2", "G3").forEach { name ->
                         jfxbutton(name) {
@@ -28,7 +28,7 @@ class JFXNodeListTestApp : App(Main::class, MyStyles::class) {
                         }
                     }
 
-                    jfxnodelist {
+                    jfxnodeslist {
                         addClass(MyStyles.jfxNodeList3)
                         listOf("S1", "S2", "S3").forEach { name ->
                             jfxbutton(name) {
@@ -36,7 +36,7 @@ class JFXNodeListTestApp : App(Main::class, MyStyles::class) {
                             }
                         }
 
-                        jfxnodelist {
+                        jfxnodeslist {
                             addClass(MyStyles.jfxNodeList4)
                             listOf("D1", "D2", "D3").forEach { name ->
                                 jfxbutton(name) {
