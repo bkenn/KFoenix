@@ -8,6 +8,8 @@ import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
 import javafx.scene.Node
 import javafx.scene.control.ButtonBar
+import javafx.scene.control.ToggleButton
+import javafx.scene.control.ToggleGroup
 import javafx.scene.control.ToolBar
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Region
@@ -117,31 +119,12 @@ fun EventTarget.jfxpasswordfield(property: Property<String>,
                                  op: JFXPasswordField.() -> Unit = {}): JFXPasswordField
         = jfxpasswordfield(promptText, op).apply { textProperty().bindBidirectional(property) }
 
-fun EventTarget.jfxradiobutton(value: String? = null,
-                               selectedColor: ObservableValue<Color>? = null,
-                               unselectedColor: ObservableValue<Color>? = null,
-                               op: JFXRadioButton.() -> Unit = {}): JFXRadioButton {
-    val radioButton = JFXRadioButton(value)
-    if(selectedColor != null)   radioButton.selectedColorProperty().bind(selectedColor)
-    if(unselectedColor != null) radioButton.selectedColorProperty().bind(unselectedColor)
-    return opcr(this, radioButton, op)
-}
-
-fun EventTarget.jfxradiobutton(value: String? = null,
-                               property: ObservableValue<Boolean>,
-                               selectedColor: ObservableValue<Color>? = null,
-                               unselectedColor: ObservableValue<Color>? = null,
-                               op: JFXRadioButton.() -> Unit = {}): JFXRadioButton
-        = jfxradiobutton(value, selectedColor, unselectedColor, op).apply { selectedProperty().bind(property) }
-
-
-fun EventTarget.jfxradiobutton(value: String? = null,
-                               property: Property<Boolean>,
-                               selectedColor: ObservableValue<Color>? = null,
-                               unselectedColor: ObservableValue<Color>? = null,
-                               op: JFXRadioButton.() -> Unit = {}): JFXRadioButton
-        = jfxradiobutton(value, selectedColor, unselectedColor, op).apply { selectedProperty().bindBidirectional(property) }
-
+fun Node.jfxradiobutton(text: String? = null, group: ToggleGroup? = getToggleGroup(), value: Any? = null, op: JFXRadioButton.() -> Unit = {})
+        = opcr(this, JFXRadioButton().apply {
+    this.text = if (value != null && text == null) value.toString() else text ?: ""
+    properties["tornadofx.toggleGroupValue"] = value ?: text
+    if (group != null) toggleGroup = group
+}, op)
 
 fun EventTarget.jfxtextarea(value: String? = null, op: JFXTextArea.() -> Unit = {}): JFXTextArea
         = opcr(this, JFXTextArea(value), op)
@@ -192,17 +175,10 @@ fun EventTarget.jfxtextfield(property: ObservableValue<String>,
         = jfxtextfield(promptText = promptText, labelFloat = labelFloat, op = op).apply { bind(property) }
 
 
-fun EventTarget.jfxtogglebutton(value: String? = null,
-                                color: ObjectProperty<Color>? = null,
-                                op: JFXToggleButton.() -> Unit = {}): JFXToggleButton {
-    val toggleButton = JFXToggleButton()
-    if(value != null) toggleButton.text = value
-    if(color != null) toggleButton.toggleColorProperty().bind(color)
-    return opcr(this, toggleButton, op)
-}
-
-fun EventTarget.jfxtogglebutton(property: ObjectProperty<Boolean>,
-                                value: String? = null,
-                                color: ObjectProperty<Color>? = null,
-                                op: JFXToggleButton.() -> Unit = {}): JFXToggleButton
-        = jfxtogglebutton(value, color, op).apply { bind(property) }
+fun Node.jfxtogglebutton(text: String? = null, group: ToggleGroup? = getToggleGroup(), selectFirst: Boolean = true, value: Any? = null, op: JFXToggleButton.() -> Unit = {}) =
+        opcr(this, JFXToggleButton().apply {
+            this.text = if (value != null && text == null) value.toString() else text ?: ""
+            properties["tornadofx.toggleGroupValue"] = value ?: text
+            if (group != null) toggleGroup = group
+            if (toggleGroup?.selectedToggle == null && selectFirst) isSelected = true
+        }, op)
