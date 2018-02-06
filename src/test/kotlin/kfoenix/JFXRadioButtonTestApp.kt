@@ -1,7 +1,6 @@
 package kfoenix
 
-import javafx.beans.property.SimpleBooleanProperty
-import javafx.beans.property.SimpleObjectProperty
+import javafx.beans.property.SimpleStringProperty
 import javafx.geometry.Pos
 import javafx.scene.paint.Color
 import javafx.scene.paint.Paint
@@ -10,9 +9,7 @@ import tornadofx.*
 class JFXRadioButtonTestApp : App(Main::class, MyStyles::class) {
 
     class Main: View() {
-        val isValid = SimpleBooleanProperty(true)
-        val firstColor = SimpleObjectProperty<Color>(Color.RED)
-        val secondColor = SimpleObjectProperty<Color>(Color.web("#36c427"))
+        val selectedValue = SimpleStringProperty("")
 
         val user = UserModel(User("John Doe", "johnd", "oe", "jdoe@fake.io"))
 
@@ -33,9 +30,17 @@ class JFXRadioButtonTestApp : App(Main::class, MyStyles::class) {
                     field("Email") {
                         jfxtextfield(user.email)
                     }
-                    field("Radios") {
-                        jfxradiobutton("Click Here", selectedColor = firstColor)
-                        jfxradiobutton("Click Here 1", isValid, secondColor)
+                    field {
+                        textProperty.bind(selectedValue)
+                        togglegroup {
+                            bind(selectedValue)
+                            jfxradiobutton("Option One") {
+                                isSelected = true
+                            }
+                            jfxtogglebutton("Option Two")
+                            togglebutton("Option Three")
+                            radiobutton("Option Four")
+                        }
                     }
                 }
             }

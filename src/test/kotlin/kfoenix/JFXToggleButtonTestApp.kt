@@ -34,7 +34,12 @@ class JFXToggleButtonTestApp : App(Main::class, MyStyles::class) {
                         jfxtextfield(user.email)
                     }
                     field("Toggle Buttons") {
-                       jfxtogglebutton("Click Here", firstColor) {  }
+                        togglegroup {
+                            jfxtogglebutton("On") {
+                                toggleColorProperty().bind(firstColor)
+                            }
+                        }
+
                     }
                 }
             }
