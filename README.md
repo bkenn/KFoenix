@@ -1,5 +1,6 @@
 # KFoenix
 
+For samples, check out the test directory.
 
 - [ ] JFXAlert
 - [ ] JFXBadge
@@ -39,3 +40,4 @@
 - [ ] JFXTreeTableView
 - [ ] JFXTreeViewPath
 
+ 
