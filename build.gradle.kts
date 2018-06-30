@@ -47,10 +47,13 @@ val sourcesJar by tasks.creating(Jar::class) {
 
 publishing {
     (publications) {
-        "mavenJava" (MavenPublication::class) {
+        "mavenJava"(MavenPublication::class) {
             groupId = "com.github.bkenn"
             artifactId = "kfoenix"
             version = "${project.version}"
+
+            from(components["java"])
+            artifact(sourcesJar)
 
             pom {
                 name.set("KFoenix")
@@ -77,7 +80,6 @@ publishing {
                 }
 
                 distributionManagement {
-
                     repositories {
                         maven {
                             credentials {
@@ -91,21 +93,19 @@ publishing {
                             if ("${project.version}".endsWith("-SNAPSHOT")) {
                                 setUrl(snapshotUrl)
                             } else {
-                               setUrl(releaseUrl)
+                                setUrl(releaseUrl)
                             }
                         }
                     }
                 }
             }
-            from(components["java"])
-            artifact(sourcesJar)
         }
     }
 }
 
 
 fun File.loadProps() {
-    readLines().forEach {  line ->
+    readLines().forEach { line ->
         val props = line.split("=")
         ext.set(props[0], props[1])
     }
