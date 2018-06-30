@@ -3,6 +3,8 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
+file(".gradle/gradle.properties").loadProps()
+
 plugins {
     kotlin("jvm") version "1.2.50"
     id("org.jetbrains.dokka") version "0.9.16"
@@ -50,8 +52,6 @@ publishing {
                 name.set("KFoenix")
                 description.set("A TornadoFX dsl for JFoenix")
 
-
-
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
@@ -76,22 +76,22 @@ publishing {
 
                     repositories {
 
-                        val mvnUsername = ext["mvnUsername"] as String
-                        val mvnPassword = ext["mvnPassword"] as String
+                        val mavenUser = ext.properties["mavenUser"] as String
+                        val mavenPassword = ext.properties["mavenPassword"] as String
 
                         maven {
                             credentials {
-                                username = mvnUsername
-                                password = mvnPassword
+                                username = mavenUser
+                                password = mavenPassword
                             }
 
-                            val releasesUrl = "https://oss.sonatype.org/content/repositories/snapshots"
-                            val snapshotUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                            val snapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
+                            val releaseUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
                             if ("${project.version}".endsWith("-SNAPSHOT")) {
                                 setUrl(snapshotUrl)
                             } else {
-                               setUrl(releasesUrl)
+                               setUrl(releaseUrl)
                             }
                         }
                     }
@@ -99,11 +99,14 @@ publishing {
             }
             from(components["java"])
             artifact(sourcesJar)
-
         }
-
     }
-
 }
 
 
+fun File.loadProps() {
+    readLines().forEach {  line ->
+        val props = line.split("=")
+        ext.set(props[0], props[1])
+    }
+}
