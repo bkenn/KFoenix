@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
 // loads maven credentials
-file(".gradle/gradle.properties").loadProps()
+file("local.properties").loadProps()
 
 val mavenUser = ext.properties["mavenUser"] as String
 val mavenPassword = ext.properties["mavenPassword"] as String

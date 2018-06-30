@@ -5,49 +5,62 @@ import tornadofx.*
 
 open class JFXStylesheet : Stylesheet() {
 
-    /****************************************************************************************
-                                          JFXButton
-     ****************************************************************************************/
+    companion object {
+        /****************************************************************************************
+                                            JFXButton
+         ****************************************************************************************/
 
-    val jfxButton by cssclass()
+        val jfxButton by cssclass()
 
-    /**
-     * Options
-     *  1. FLAT
-     *  2. RAISED
-     */
-    val jfxButtonType by cssproperty<String>("-jfx-button-type")
+        val jfxButtonRaised by cssclass()
 
-    val jfxDisableVisualFocus by cssproperty<Boolean>("-jfx-disable-visual-focus")
+        /**
+         * Options
+         *  1. FLAT
+         *  2. RAISED
+         */
+        val jfxButtonType by cssproperty<String>("-jfx-button-type")
+
+        val jfxDisableVisualFocus by cssproperty<Boolean>("-jfx-disable-visual-focus")
 
 
+        /****************************************************************************************
+                                            JFXCheckBox
+         ****************************************************************************************/
 
+        val jfxCheckBox by cssclass()
 
-    /****************************************************************************************
-                                          JFXCheckBox
-     ****************************************************************************************/
+        val jfxCheckedColor by cssproperty<Paint>("-jfx-checked-color")
 
-    val jfxCheckBox by cssclass()
+        val jfxUnCheckedColor by cssproperty<Paint>("-jfx-unchecked-color")
 
-    val jfxCheckedColor by cssproperty<Paint>("-jfx-checked-color")
+        /****************************************************************************************
+                                            JFXRippler
+         ****************************************************************************************/
 
-    val jfxUnCheckedColor by cssproperty<Paint>("-jfx-unchecked-color")
+        val jfxRippler by cssclass()
 
-    /****************************************************************************************
-                                           JFXRippler
-     ****************************************************************************************/
+        val jfxRipplerFill by cssproperty<Paint>("-jfx-rippler-fill")
 
-    val jfxRippler by cssclass()
-
-    val jfxRipplerFill by cssproperty<Paint>("-jfx-rippler-fill")
-
-    /****************************************************************************************
+        /****************************************************************************************
                                           JFXToggleButton
-     ****************************************************************************************/
+         ****************************************************************************************/
 
-    val jfxTogglerButton by cssclass()
+        val jfxTogglerButton by cssclass()
 
-    val jfxToggleColor by cssproperty<Paint>("-jfx-toggle-color")
-    val jfxUnToggleColor by cssproperty<Paint>("-jfx-untoggle-color")
+        val jfxToggleColor by cssproperty<Paint>("-jfx-toggle-color")
+
+        val jfxUnToggleColor by cssproperty<Paint>("-jfx-untoggle-color")
+    }
+
+    init {
+        jfxButton {
+            jfxButtonType.value = "FLAT"
+        }
+
+        jfxButtonRaised {
+            jfxButtonType.value = "RAISED"
+        }
+    }
 
 }
