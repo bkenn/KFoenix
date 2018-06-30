@@ -3,7 +3,11 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
+// loads maven credentials
 file(".gradle/gradle.properties").loadProps()
+
+val mavenUser = ext.properties["mavenUser"] as String
+val mavenPassword = ext.properties["mavenPassword"] as String
 
 plugins {
     kotlin("jvm") version "1.2.50"
@@ -75,10 +79,6 @@ publishing {
                 distributionManagement {
 
                     repositories {
-
-                        val mavenUser = ext.properties["mavenUser"] as String
-                        val mavenPassword = ext.properties["mavenPassword"] as String
-
                         maven {
                             credentials {
                                 username = mavenUser
