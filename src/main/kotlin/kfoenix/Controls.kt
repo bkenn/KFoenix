@@ -6,6 +6,7 @@ import javafx.beans.property.ObjectProperty
 import javafx.beans.property.Property
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
+import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.ButtonBar
 import javafx.scene.control.ToggleButton
@@ -17,6 +18,8 @@ import javafx.scene.paint.Color
 import javafx.util.StringConverter
 import tornadofx.*
 import java.time.LocalDate
+
+fun EventTarget.jfxbadge(op: JFXBadge.() -> Unit = {}) = opcr(this, JFXBadge(), op)
 
 fun ButtonBar.jfxbutton(value: String? = null,
                         btnType: JFXButton.ButtonType = FLAT,
@@ -79,11 +82,14 @@ fun EventTarget.jfxcheckbox(property: ObservableValue<Boolean>,
                             op: JFXCheckBox.() -> Unit = {}): JFXCheckBox
         = jfxcheckbox(value = value, op = op).apply { bind(property) }
 
+fun EventTarget.jfxcolorpicker(op: JFXColorPicker.() -> Unit = {}) = opcr(this, JFXColorPicker(), op)
+
 fun EventTarget.jfxdatepicker(op: JFXDatePicker.() -> Unit = {}) : JFXDatePicker = opcr(this, JFXDatePicker(), op)
 
 fun EventTarget.jfxdatepicker(property: Property<LocalDate>, op: JFXDatePicker.() -> Unit = {}): JFXDatePicker
         = jfxdatepicker(op).apply { bind(property) }
 
+fun EventTarget.jfxhamburger(op: JFXHamburger.() -> Unit = {}): JFXHamburger = opcr(this, JFXHamburger(), op)
 
 fun EventTarget.jfxnodeslist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
     val nodeList = JFXNodesList()
@@ -119,12 +125,25 @@ fun EventTarget.jfxpasswordfield(property: Property<String>,
                                  op: JFXPasswordField.() -> Unit = {}): JFXPasswordField
         = jfxpasswordfield(promptText, op).apply { textProperty().bindBidirectional(property) }
 
-fun Node.jfxradiobutton(text: String? = null, group: ToggleGroup? = getToggleGroup(), value: Any? = null, op: JFXRadioButton.() -> Unit = {})
-        = opcr(this, JFXRadioButton().apply {
+fun EventTarget.jfxpopup(op: JFXPopup.() -> Unit = {}) = JFXPopup().apply(op)
+
+fun EventTarget.jfxprogressbar(op: JFXProgressBar.() -> Unit = {}): JFXProgressBar
+        = opcr(this, JFXProgressBar(), op)
+
+fun Node.jfxradiobutton(text: String? = null,
+                        group: ToggleGroup? = getToggleGroup(),
+                        value: Any? = null,
+                        op: JFXRadioButton.() -> Unit = {}) = opcr(this, JFXRadioButton().apply {
     this.text = if (value != null && text == null) value.toString() else text ?: ""
     properties["tornadofx.toggleGroupValue"] = value ?: text
     if (group != null) toggleGroup = group
 }, op)
+
+fun Node.jfxrippler(op: JFXRippler.() -> Unit = {}): JFXRippler {
+    val rippler = JFXRippler(this)
+    rippler.op()
+    return rippler
+}
 
 fun EventTarget.jfxtextarea(value: String? = null, op: JFXTextArea.() -> Unit = {}): JFXTextArea
         = opcr(this, JFXTextArea(value), op)
@@ -156,6 +175,25 @@ fun <T: Pane> jfxsnackbar(message: String, pane: T, op: JFXSnackbar.() -> Unit =
 
 fun Pane.jfxsnackbar(message: String, op: JFXSnackbar.() -> Unit = {}) = jfxsnackbar(message,this, op)
 
+fun EventTarget.jfxslider(min: Double? = null,
+                          orientation: Orientation = Orientation.HORIZONTAL,
+                          indicatorPosition: JFXSlider.IndicatorPosition = JFXSlider.IndicatorPosition.LEFT,
+                          op: JFXSlider.() -> Unit = {}): JFXSlider {
+    val slider = JFXSlider()
+
+    slider.indicatorPosition = indicatorPosition
+
+    if(orientation == Orientation.HORIZONTAL) {
+        if(min != null) slider.minWidth = min
+    } else {
+        if(min != null) slider.minHeight = min
+    }
+
+    return opcr(this, slider, op)
+}
+
+fun EventTarget.jfxspinner(op: JFXSpinner.() -> Unit = {}): JFXSpinner = opcr(this, JFXSpinner(), op)
+
 fun EventTarget.jfxtabpane(op: JFXTabPane.() -> Unit = {}): JFXTabPane = opcr(this, JFXTabPane(), op)
 
 fun EventTarget.jfxtextfield(value: String? = null,
@@ -175,7 +213,11 @@ fun EventTarget.jfxtextfield(property: ObservableValue<String>,
         = jfxtextfield(promptText = promptText, labelFloat = labelFloat, op = op).apply { bind(property) }
 
 
-fun Node.jfxtogglebutton(text: String? = null, group: ToggleGroup? = getToggleGroup(), selectFirst: Boolean = true, value: Any? = null, op: JFXToggleButton.() -> Unit = {}) =
+fun Node.jfxtogglebutton(text: String? = null,
+                         group: ToggleGroup? = getToggleGroup(),
+                         selectFirst: Boolean = true,
+                         value: Any? = null,
+                         op: JFXToggleButton.() -> Unit = {}) =
         opcr(this, JFXToggleButton().apply {
             this.text = if (value != null && text == null) value.toString() else text ?: ""
             properties["tornadofx.toggleGroupValue"] = value ?: text

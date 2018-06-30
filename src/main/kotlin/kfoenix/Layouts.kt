@@ -1,6 +1,7 @@
 package kfoenix
 
 import com.jfoenix.controls.JFXDecorator
+import com.jfoenix.controls.JFXMasonryPane
 import com.jfoenix.controls.JFXToolbar
 import javafx.event.EventTarget
 import javafx.scene.Node
@@ -57,3 +58,4 @@ fun JFXToolbar.rightSide(op: JFXToolbar.() -> Unit = {}) {
     FX.removeChildInterceptor(interceptor)
 }
 
+fun EventTarget.jfxmasonrypane(op: JFXMasonryPane.() -> Unit = {}) = opcr(this, JFXMasonryPane(), op)

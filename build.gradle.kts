@@ -106,7 +106,9 @@ publishing {
 
 fun File.loadProps() {
     readLines().forEach { line ->
-        val props = line.split("=")
-        ext.set(props[0], props[1])
+        val pair = line.split("=")
+        if(pair.size == 2) {
+            ext.set(pair[0], pair[1])
+        }
     }
 }
