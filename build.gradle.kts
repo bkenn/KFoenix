@@ -3,16 +3,11 @@ import org.jetbrains.dokka.gradle.DokkaTask
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
-// loads maven credentials
-file("local.properties").loadProps()
-
-val mavenUser = ext.properties["mavenUser"] as String
-val mavenPassword = ext.properties["mavenPassword"] as String
-
 plugins {
     kotlin("jvm") version "1.2.50"
     id("org.jetbrains.dokka") version "0.9.16"
     id("maven-publish")
+    id("signing")
 }
 
 group = "kfoenix"
@@ -83,8 +78,9 @@ publishing {
                     repositories {
                         maven {
                             credentials {
-                                username = mavenUser
-                                password = mavenPassword
+                                // place credentials in ~/.gradle/gradle.properties
+                                username = ext.properties["mavenUser"] as String?
+                                password = ext.properties["mavenPassword"] as String?
                             }
 
                             val snapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
@@ -99,16 +95,6 @@ publishing {
                     }
                 }
             }
-        }
-    }
-}
-
-
-fun File.loadProps() {
-    readLines().forEach { line ->
-        val pair = line.split("=")
-        if(pair.size == 2) {
-            ext.set(pair[0], pair[1])
         }
     }
 }

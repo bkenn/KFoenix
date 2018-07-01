@@ -12,7 +12,9 @@ import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import tornadofx.*
 
-fun <T> EventTarget.jfxcombobox(property: Property<T>? = null, values: List<T>? = null, op: JFXComboBox<T>.() -> Unit = {}): JFXComboBox<T> {
+fun <T> EventTarget.jfxcombobox(property: Property<T>? = null,
+                                values: List<T>? = null,
+                                op: JFXComboBox<T>.() -> Unit = {}): JFXComboBox<T> {
     val comboBox = JFXComboBox<T>().apply {
         if(values != null) items = values as? ObservableList<T> ?: values.observable()
         if(property != null) bind(property)
@@ -33,7 +35,8 @@ fun <T> EventTarget.jfxlistview(values: ReadOnlyListProperty<T>, op: JFXListView
         = jfxlistview(values as ObservableValue<ObservableList<T>>, op)
 
 fun <T> EventTarget.jfxlistview(values: ObservableValue<ObservableList<T>>,
-                                op: JFXListView<T>.() -> Unit = {}): JFXListView<T> = opcr(this, JFXListView<T>().apply {
+                                op: JFXListView<T>.() -> Unit = {}): JFXListView<T>
+        = opcr(this, JFXListView<T>().apply {
     fun rebinder() { (items as? SortedFilteredList<T>)?.bindTo(this) }
     itemsProperty().bind(values)
     rebinder()
