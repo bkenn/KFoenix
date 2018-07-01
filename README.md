@@ -5,6 +5,32 @@ KFoenix is a library that defines a set of DSLs for JFoenix library. This librar
 ## Important
 TornadoFX is not yet compatible with Java 9+. This library will be depending on JFoenix for Java 8. 
 
+## Add KFoenix to your project
+
+Currently KFoenix is only available via the sonatype's snapshot repository so you must add the url 
+for the repository. I will add KFoenix to mavenCentral once its at 0.1.2 which should be done shortly. Until then
+use the snapshot.
+
+Maven
+```
+<dependency>
+  <groupId>com.github.bkenn</groupId>
+  <artifactId>kfoenix</artifactId>
+  <version>0.1.2-SNAPSHOT</version>
+</dependency>
+```
+
+Gradle
+```gradle
+repositories {
+     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+dependencies {
+   compile("com.github.bkenn:kfoenix:0.1.2-SNAPSHOT")
+}
+```
+
 ## What is currently implemented?
 
 - [X] JFXAlert
