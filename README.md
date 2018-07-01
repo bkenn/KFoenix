@@ -1,36 +1,41 @@
 # KFoenix
 
-For samples, check out the test directory.
+KFoenix is a library that defines a set of DSLs for JFoenix library. This library is to be used in conjuntion of https://github.com/edvin/tornadofx. TornadoFX accelerates development of JavaFX applications. Check out the wiki and test folder for examples of each component use available.
 
-- [ ] JFXAlert
-- [ ] JFXBadge
+## Important
+TornadoFX is not yet compatible with Java 9+. This library will be depending on JFoenix for Java 8. 
+
+## What is currently implemented?
+
+- [X] JFXAlert
+- [X] JFXBadge
 - [X] JFXButton
 - [X] JFXCheckBox
-- [ ] JFXColorPicker
+- [X] JFXColorPicker
 - [X] JFXComboBox
 - [X] JFXDatePicker
 - [X] JFXDecorator
-- [ ] JFXDialog
+- [X] JFXDialog
 - [ ] JFXDialogLayout
 - [ ] JFXDrawer 
 - [ ] JFXDrawersStack
-- [ ] JFXHamburger
+- [X] JFXHamburger
 - [ ] JFXListCell
 - [X] JFXListView
-- [ ] JFXMasonryPane
+- [X] JFXMasonryPane
 - [x] JFXNodesList
 - [X] JFXPasswordField
-- [ ] JFXPopup
-- [ ] JFXProgressBar
+- [X] JFXPopup
+- [X] JFXProgressBar
 - [X] JFXRadioButton
 - [X] JFXSpinner
 - [ ] JFXScrollPane
-- [ ] JFXSlider
+- [X] JFXSlider
 - [X] JFXSnackbar
-- [ ] JFXTabPane
+- [X] JFXTabPane
 - [X] JFXTextArea
 - [X] JFXTextField
-- [ ] JFXTimePicker
+- [X] JFXTimePicker
 - [X] JFXToggleButton
 - [ ] JFXTogglePane
 - [X] JFXToolBar
