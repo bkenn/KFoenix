@@ -33,7 +33,7 @@ class JFXDatePickerTestApp : App(Main::class, MyStyles::class) {
         }
     }
 
-    class MyStyles: Stylesheet() {
+    class MyStyles: JFXStylesheet() {
 
         companion object {
             val bar by cssclass()
@@ -52,4 +52,5 @@ class JFXDatePickerTestApp : App(Main::class, MyStyles::class) {
             }
         }
     }
+
 }

@@ -246,6 +246,14 @@ open class JFXStylesheet : Stylesheet() {
         val jfxToggleColor by cssproperty<Paint>("-jfx-toggle-color")
 
         val jfxUnToggleColor by cssproperty<Paint>("-jfx-untoggle-color")
+
+        // jfxDisableAnimation
+
+        /* ***************************************************************************************
+                                          JFXToolbar
+         *************************************************************************************** */
+
+        val jfxToolbar by cssclass()
     }
 
     init {

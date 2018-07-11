@@ -28,7 +28,7 @@ class JFXComboBoxTestApp : App(Main::class, MyStyles::class) {
                         jfxtextfield(user.email)
                     }
                     field("State") {
-                        jfxcombobox(user.state, states)
+                        jfxcombobox(user.state, states) // use of JFXComboBox
                     }
                 }
                 buttonbar {
@@ -41,20 +41,17 @@ class JFXComboBoxTestApp : App(Main::class, MyStyles::class) {
         }
     }
 
-    class MyStyles : Stylesheet() {
+    class MyStyles : JFXStylesheet() {
 
         companion object {
             val bar by cssclass()
             val box by cssclass()
             val customerBtn by cssclass()
-            val jfxButton by cssclass()
-            val jfxRippler by cssclass()
 
             val defaultColor = Color.web("#4059a9")
         }
 
         init {
-            /* Must place default styling first. Will overwrite more specific styling */
             jfxButton {
                 backgroundColor += defaultColor
                 textFill = Color.WHITE
@@ -73,9 +70,10 @@ class JFXComboBoxTestApp : App(Main::class, MyStyles::class) {
             customerBtn {
                 backgroundColor += Color.TRANSPARENT
                 jfxRippler {
-                    unsafe("-jfx-rippler-fill", Color.GRAY)
+                    jfxRipplerFill.value = Color.GRAY
                 }
             }
         }
     }
+
 }

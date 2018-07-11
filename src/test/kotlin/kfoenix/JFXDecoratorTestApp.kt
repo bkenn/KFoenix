@@ -50,10 +50,9 @@ class JFXDecoratorTestApp: App(Main::class, MyStyles::class) {
         }
     }
 
-    class MyStyles: Stylesheet() {
+    class MyStyles: JFXStylesheet() {
         companion object {
             val box by cssclass()
-            val jfxDecoratorContentContainer by cssclass()
             val switchBtn by cssclass()
 
             val defaultColor = Color.web("#4059a9")
@@ -75,5 +74,4 @@ class JFXDecoratorTestApp: App(Main::class, MyStyles::class) {
             }
         }
     }
-
 }

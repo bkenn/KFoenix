@@ -12,6 +12,9 @@ import javafx.event.EventTarget
 import javafx.scene.control.TableColumn
 import tornadofx.*
 
+/**
+ * ComboBox
+ */
 fun <T> EventTarget.jfxcombobox(property: Property<T>? = null,
                                 values: List<T>? = null,
                                 op: JFXComboBox<T>.() -> Unit = {}): JFXComboBox<T> {
@@ -22,6 +25,9 @@ fun <T> EventTarget.jfxcombobox(property: Property<T>? = null,
     return opcr(this, comboBox, op)
 }
 
+/**
+ * ListView
+ */
 fun <T> EventTarget.jfxlistview(items: ObservableList<T>? = null, op: JFXListView<T>.() -> Unit = {}): JFXListView<T> {
     val listView = JFXListView<T>()
     if (items != null) {
@@ -43,6 +49,9 @@ fun <T> EventTarget.jfxlistview(values: ObservableValue<ObservableList<T>>,
     itemsProperty().onChange { rebinder() }
 }, op)
 
+/**
+ * Spinner
+ */
 fun EventTarget.jfxspinner(property: ObservableValue<Boolean>? = null, op: JFXSpinner.() -> Unit = {}): JFXSpinner {
     val spinner = JFXSpinner()
     if(property != null) spinner.visibleProperty().bind(property)

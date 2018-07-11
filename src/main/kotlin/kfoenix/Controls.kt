@@ -19,8 +19,14 @@ import javafx.util.StringConverter
 import tornadofx.*
 import java.time.LocalDate
 
+/**
+ * Badge
+ */
 fun EventTarget.jfxbadge(op: JFXBadge.() -> Unit = {}) = opcr(this, JFXBadge(), op)
 
+/**
+ * Buttons
+ */
 fun ButtonBar.jfxbutton(value: String? = null,
                         btnType: JFXButton.ButtonType = FLAT,
                         graphic: Node? = null,
@@ -73,6 +79,9 @@ fun ToolBar.jfxbutton(property :ObservableValue<String>,
                       op: JFXButton.() -> Unit = {}): JFXButton
         = jfxbutton(btnType = btnType, graphic = graphic, op = op).apply { bind(property) }
 
+/**
+ * CheckBox
+ */
 fun EventTarget.jfxcheckbox(value: String? = null,
                             op: JFXCheckBox.() -> Unit = {}): JFXCheckBox
         = opcr(this, JFXCheckBox(value), op)
@@ -82,15 +91,27 @@ fun EventTarget.jfxcheckbox(property: ObservableValue<Boolean>,
                             op: JFXCheckBox.() -> Unit = {}): JFXCheckBox
         = jfxcheckbox(value = value, op = op).apply { bind(property) }
 
+/**
+ * ColorPicker
+ */
 fun EventTarget.jfxcolorpicker(op: JFXColorPicker.() -> Unit = {}) = opcr(this, JFXColorPicker(), op)
 
+/**
+ * DatePicker
+ */
 fun EventTarget.jfxdatepicker(op: JFXDatePicker.() -> Unit = {}) : JFXDatePicker = opcr(this, JFXDatePicker(), op)
 
 fun EventTarget.jfxdatepicker(property: Property<LocalDate>, op: JFXDatePicker.() -> Unit = {}): JFXDatePicker
         = jfxdatepicker(op).apply { bind(property) }
 
+/**
+ * Hamburger
+ */
 fun EventTarget.jfxhamburger(op: JFXHamburger.() -> Unit = {}): JFXHamburger = opcr(this, JFXHamburger(), op)
 
+/**
+ *  NodeList
+ */
 fun EventTarget.jfxnodeslist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
     val nodeList = JFXNodesList()
     val interceptor = object: ChildInterceptor {
@@ -109,6 +130,9 @@ fun EventTarget.jfxnodeslist(op: JFXNodesList.() -> Unit = {}) : JFXNodesList {
     return nodeList
 }
 
+/**
+ * Passwordfield
+ */
 fun EventTarget.jfxpasswordfield(promptText: String? = null, op: JFXPasswordField.() -> Unit = {}): JFXPasswordField  {
     val passwordField = JFXPasswordField()
     if(promptText != null) passwordField.promptText = promptText
@@ -125,11 +149,20 @@ fun EventTarget.jfxpasswordfield(property: Property<String>,
                                  op: JFXPasswordField.() -> Unit = {}): JFXPasswordField
         = jfxpasswordfield(promptText, op).apply { textProperty().bindBidirectional(property) }
 
+/**
+ * Popup
+ */
 fun EventTarget.jfxpopup(op: JFXPopup.() -> Unit = {}) = JFXPopup().apply(op)
 
+/**
+ * Progressbar
+ */
 fun EventTarget.jfxprogressbar(op: JFXProgressBar.() -> Unit = {}): JFXProgressBar
         = opcr(this, JFXProgressBar(), op)
 
+/**
+ * RadioButton
+ */
 fun Node.jfxradiobutton(text: String? = null,
                         group: ToggleGroup? = getToggleGroup(),
                         value: Any? = null,
@@ -139,12 +172,18 @@ fun Node.jfxradiobutton(text: String? = null,
     if (group != null) toggleGroup = group
 }, op)
 
+/**
+ * Rippler
+ */
 fun Node.jfxrippler(op: JFXRippler.() -> Unit = {}): JFXRippler {
     val rippler = JFXRippler(this)
     rippler.op()
     return rippler
 }
 
+/**
+ * TextArea
+ */
 fun EventTarget.jfxtextarea(value: String? = null, op: JFXTextArea.() -> Unit = {}): JFXTextArea
         = opcr(this, JFXTextArea(value), op)
 
@@ -170,11 +209,17 @@ fun View.jfxsnackbar(message: String, timeout: Long = -1, op: JFXSnackbar.() -> 
 }
  */
 
+/**
+ * SnackBar
+ */
 fun <T: Pane> jfxsnackbar(message: String, pane: T, op: JFXSnackbar.() -> Unit = {})
         = JFXSnackbar(pane).also(op).enqueue(JFXSnackbar.SnackbarEvent(message))
 
 fun Pane.jfxsnackbar(message: String, op: JFXSnackbar.() -> Unit = {}) = jfxsnackbar(message,this, op)
 
+/**
+ * Slider
+ */
 fun EventTarget.jfxslider(min: Double? = null,
                           orientation: Orientation = Orientation.HORIZONTAL,
                           indicatorPosition: JFXSlider.IndicatorPosition = JFXSlider.IndicatorPosition.LEFT,
@@ -192,10 +237,14 @@ fun EventTarget.jfxslider(min: Double? = null,
     return opcr(this, slider, op)
 }
 
-fun EventTarget.jfxspinner(op: JFXSpinner.() -> Unit = {}): JFXSpinner = opcr(this, JFXSpinner(), op)
-
+/**
+ * TabPane
+ */
 fun EventTarget.jfxtabpane(op: JFXTabPane.() -> Unit = {}): JFXTabPane = opcr(this, JFXTabPane(), op)
 
+/**
+ * Textfield
+ */
 fun EventTarget.jfxtextfield(value: String? = null,
                              promptText: String? = null,
                              labelFloat: Boolean = false,
@@ -213,6 +262,9 @@ fun EventTarget.jfxtextfield(property: ObservableValue<String>,
         = jfxtextfield(promptText = promptText, labelFloat = labelFloat, op = op).apply { bind(property) }
 
 
+/**
+ * ToggleButton
+ */
 fun Node.jfxtogglebutton(text: String? = null,
                          group: ToggleGroup? = getToggleGroup(),
                          selectFirst: Boolean = true,

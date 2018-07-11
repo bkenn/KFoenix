@@ -11,19 +11,18 @@ class JFXDecoratorEventBusTestApp : App(Main::class, MyStyles::class) {
     class Main: View() {
         override val root = jfxdecorator(First::class) {
             subscribe<ReplaceContentEvent<UIComponent>> {
-                setContent(find(it.uiComponent).root)
+                setContent(find(it.uiComponent, it.findScope).root) // receive component and what scope to find it in
             }
         }
     }
 
     class First: View() {
         override val root = vbox {
-            style = "margin: 5px"
             addClass(MyStyles.box)
             label("First").addClass(MyStyles.title)
             jfxbutton("Switch") {
                 addClass(MyStyles.switchBtn)
-                action { fire(ReplaceContentEvent(Second::class)) }
+                action { fire(ReplaceContentEvent(Second::class)) } // fire event to replace decorators content
             }
         }
     }
@@ -34,15 +33,14 @@ class JFXDecoratorEventBusTestApp : App(Main::class, MyStyles::class) {
             label("Second").addClass(MyStyles.title)
             jfxbutton("Switch", btnType = JFXButton.ButtonType.RAISED) {
                 addClass(MyStyles.switchBtn)
-                action { fire(ReplaceContentEvent(First::class)) }
+                action { fire(ReplaceContentEvent(First::class)) } // fire event to replace decorators content
             }
         }
     }
 
-    class MyStyles: Stylesheet() {
+    class MyStyles: JFXStylesheet() {
         companion object {
             val box by cssclass()
-            val jfxDecoratorContentContainer by cssclass()
             val switchBtn by cssclass()
             val title by cssclass()
 
