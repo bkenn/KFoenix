@@ -4,14 +4,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
 plugins {
-    kotlin("jvm") version "1.2.50"
-    id("org.jetbrains.dokka") version "0.9.16"
+    kotlin("jvm") version "1.2.70"
+    id("org.jetbrains.dokka") version "0.9.17"
     id("maven-publish")
     id("signing")
 }
 
 group = "kfoenix"
-version = "0.1.2"
+version = "0.1.3"
 
 repositories {
     mavenCentral()
@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
-    compile("com.jfoenix:jfoenix:8.0.4")
+    compile("com.jfoenix:jfoenix:8.0.7")
     compile("no.tornado:tornadofx:1.7.16")
 }
 
@@ -37,12 +37,16 @@ with(tasks) {
 
 val sourcesJar by tasks.creating(Jar::class) {
     classifier = "sources"
-    from(java.sourceSets["main"].allSource)
+    from(sourceSets["main"].java.srcDirs)
+}
+
+signing {
+    sign(configurations.archives)
 }
 
 publishing {
-    (publications) {
-        "mavenJava"(MavenPublication::class) {
+    publications {
+        register("mavenJava", MavenPublication::class) {
             groupId = "com.github.bkenn"
             artifactId = "kfoenix"
             version = "${project.version}"
@@ -86,7 +90,7 @@ publishing {
                             val snapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots"
                             val releaseUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
 
-                            if ("${project.version}".endsWith("-SNAPSHOT")) {
+                            if (version.endsWith("-SNAPSHOT")) {
                                 setUrl(snapshotUrl)
                             } else {
                                 setUrl(releaseUrl)
