@@ -40,8 +40,9 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets["main"].java.srcDirs)
 }
 
-signing {
-    sign(configurations.archives)
+val javaDocJar by tasks.creating(Jar::class) {
+    classifier = "javadoc"
+    from("$buildDir/javadoc")
 }
 
 publishing {
@@ -51,12 +52,18 @@ publishing {
             artifactId = "kfoenix"
             version = "${project.version}"
 
+            signing {
+                sign(this@register)
+            }
+
             from(components["java"])
             artifact(sourcesJar)
+            artifact(javaDocJar)
 
             pom {
                 name.set("KFoenix")
                 description.set("A TornadoFX dsl for JFoenix")
+                url.set("https://github.com/bkenn/KFoenix")
 
                 licenses {
                     license {
@@ -74,6 +81,7 @@ publishing {
                 }
 
                 scm {
+                    url.set("https://github.com/bkenn/KFoenix")
                     connection.set("scm:git:git://github.com/bkenn/KFoenix.git")
                     developerConnection.set("scm:git:ssh://github.com/bkenn/KFoenix.git")
                 }
