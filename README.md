@@ -20,7 +20,7 @@ Gradle
 ```gradle
 
 dependencies {
-   compile("com.github.bkenn:kfoenix:0.1.3-SNAPSHOT")
+   compile("com.github.bkenn:kfoenix:0.1.3")
 }
 
 ```
