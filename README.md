@@ -7,37 +7,22 @@ TornadoFX is not yet compatible with Java 9+. This library will be depending on 
 
 ## Add KFoenix to your project
 
-Currently KFoenix is only available via the sonatype's snapshot repository so you must add the url 
-for the repository. I will add KFoenix to mavenCentral once its at 0.1.3 which should be done shortly. Until then
-use the snapshot.
-
 Maven
 ```
- <repositories>
-   <repository>
-     <id>snapshots-repo</id>
-     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-     <releases><enabled>false</enabled></releases>
-     <snapshots><enabled>true</enabled></snapshots>
-   </repository>
- </repositories>
- 
 <dependency>
   <groupId>com.github.bkenn</groupId>
   <artifactId>kfoenix</artifactId>
-  <version>0.1.3-SNAPSHOT</version>
+  <version>0.1.3</version>
 </dependency>
 ```
 
 Gradle
 ```gradle
-repositories {
-     maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-}
 
 dependencies {
    compile("com.github.bkenn:kfoenix:0.1.3-SNAPSHOT")
 }
+
 ```
 
 ## What is currently implemented?
