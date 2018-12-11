@@ -4,14 +4,14 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.load.kotlin.signatures
 
 plugins {
-    kotlin("jvm") version "1.2.70"
+    kotlin("jvm") version "1.3.11"
     id("org.jetbrains.dokka") version "0.9.17"
     id("maven-publish")
     id("signing")
 }
 
 group = "kfoenix"
-version = "0.1.3"
+version = "0.1.4"
 
 repositories {
     mavenCentral()
@@ -19,8 +19,10 @@ repositories {
 
 dependencies {
     compile(kotlin("stdlib-jdk8"))
-    compile("com.jfoenix:jfoenix:8.0.7")
-    compile("no.tornado:tornadofx:1.7.16")
+    compile("com.jfoenix:jfoenix:8.0.8")
+    compile("no.tornado:tornadofx:1.7.17") {
+        exclude("org.jetbrains.kotlin")
+    }
 }
 
 

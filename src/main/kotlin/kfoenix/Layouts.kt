@@ -16,9 +16,11 @@ import kotlin.reflect.KClass
  * You will receive the following exception: java.lang.IllegalStateException: Cannot set style once stage has been set visible
  *
  */
-fun <T: UIComponent> View.jfxdecorator(uiComponent: T, op: JFXDecorator.() -> Unit = {}) = opcr(this, JFXDecorator(primaryStage, uiComponent.root), op)
+fun <T: UIComponent> View.jfxdecorator(uiComponent: T, op: JFXDecorator.() -> Unit = {})
+        = opcr(this, JFXDecorator(primaryStage, uiComponent.root), op)
 
-fun View.jfxdecorator(node: Node, op: JFXDecorator.() -> Unit = {}) = opcr(this, JFXDecorator(primaryStage, node), op)
+fun View.jfxdecorator(node: Node, fullScreen: Boolean = true, max: Boolean = true, min: Boolean = true, op: JFXDecorator.() -> Unit = {})
+        = opcr(this, JFXDecorator(primaryStage, node, fullScreen, max, min), op)
 
 fun View.jfxdecorator(uiComponent: KClass<out UIComponent>, op: JFXDecorator.() -> Unit = {}) = jfxdecorator(find(uiComponent), op)
 

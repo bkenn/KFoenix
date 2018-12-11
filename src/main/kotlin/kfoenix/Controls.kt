@@ -2,19 +2,16 @@ package kfoenix
 
 import com.jfoenix.controls.*
 import com.jfoenix.controls.JFXButton.ButtonType.*
-import javafx.beans.property.ObjectProperty
 import javafx.beans.property.Property
 import javafx.beans.value.ObservableValue
 import javafx.event.EventTarget
 import javafx.geometry.Orientation
 import javafx.scene.Node
 import javafx.scene.control.ButtonBar
-import javafx.scene.control.ToggleButton
 import javafx.scene.control.ToggleGroup
 import javafx.scene.control.ToolBar
 import javafx.scene.layout.Pane
 import javafx.scene.layout.Region
-import javafx.scene.paint.Color
 import javafx.util.StringConverter
 import tornadofx.*
 import java.time.LocalDate
@@ -213,7 +210,7 @@ fun View.jfxsnackbar(message: String, timeout: Long = -1, op: JFXSnackbar.() -> 
  * SnackBar
  */
 fun <T: Pane> jfxsnackbar(message: String, pane: T, op: JFXSnackbar.() -> Unit = {})
-        = JFXSnackbar(pane).also(op).enqueue(JFXSnackbar.SnackbarEvent(message))
+        = JFXSnackbar(pane).also(op).enqueue(JFXSnackbar.SnackbarEvent(JFXSnackbarLayout(message)))
 
 fun Pane.jfxsnackbar(message: String, op: JFXSnackbar.() -> Unit = {}) = jfxsnackbar(message,this, op)
 
